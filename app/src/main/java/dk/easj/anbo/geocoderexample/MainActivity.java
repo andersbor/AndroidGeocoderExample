@@ -13,6 +13,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String LOG_TAG = "MINE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         int maxResults = 4;
 
         // Geocoding: location name -> (latitude, longitude)
-        String locationName =  "Jernbanegade 3A, 4000 Roskilde, Denmark";
+        String locationName =  "Maglegårdsvej 2, 4000 Roskilde, Denmark";
         TextView viewResult = findViewById(R.id.main_addresses_textview);
         viewResult.setText(locationName + "\n");
         try {
@@ -36,24 +38,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         // Reverse geocoding: (latitude, longitude) -> address(es)
-        double latitude = 55.6389;
-        double longitude = 12.0880;
+        double latitude = 55.63;
+        double longitude = 12.08;
         TextView viewReverseResult = findViewById(R.id.main_position_textview);
         viewReverseResult.setText("Lat: " + latitude + " Long:" + longitude + "\n");
         try {
-
             List<Address> addressList = geocoder.getFromLocation(latitude, longitude, maxResults);
+            Log.d(LOG_TAG, addressList.toString());
             for (Address addr : addressList) {
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < addr.getMaxAddressLineIndex(); i++) {
-                    sb.append(addr.getAddressLine(i));
-                    sb.append(", ");
-                }
-                Log.d("MINE", sb.toString());
-                viewReverseResult.append(sb + "\n");
+                // Log.d(LOG_TAG, addr.toString());
+                String addressLine = addr.getAddressLine(0);
+                Log.d(LOG_TAG, addressLine);
+                viewReverseResult.append(addressLine  + "\n");
                 //viewReverseResult.setText(addr.getPremises() + " " + addr.getFeatureName() + " " + addr.getLocality() + ", " + addr.getCountryName());
             }
-            // view.setText(addressList.toString());
         } catch (IOException e) {
             viewReverseResult.setText(e.getMessage());
         }
