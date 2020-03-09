@@ -3,7 +3,7 @@ package dk.easj.anbo.geocoderexample;
 import android.app.Application;
 import android.location.Address;
 import android.location.Geocoder;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String LOG_TAG = "MINE";
+    private static final String LOG_TAG = "MINE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
